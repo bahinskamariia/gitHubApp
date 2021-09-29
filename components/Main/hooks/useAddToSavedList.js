@@ -17,9 +17,11 @@ export const useAddToSavedList = () => {
 
   const setToStorage = React.useCallback(async (item) => {
     try {
-      await AsyncStorage.setItem(
+      await AsyncStorage.mergeItem(
         'savedList',
-        JSON.stringify(item),
+        JSON.stringify({
+          [Date.now()]: item,
+        }),
       );
       await getFromStorage();
     } catch (_) {
@@ -34,6 +36,6 @@ export const useAddToSavedList = () => {
   return {
     setItem: setToStorage,
     getItems: getFromStorage,
-    savedList,
+    savedList: savedList || [],
   }
 };

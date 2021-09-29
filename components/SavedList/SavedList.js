@@ -2,7 +2,7 @@ import React from 'react';
 import * as Navigation from '@react-navigation/native';
 
 import {useAddToSavedList} from '../Main/hooks/useAddToSavedList';
-import {ListResults} from '../../common/components/ListResults/ListResults';
+import {SavedListResults} from './components/SavedListResults/SavedListResults';
 
 const SavedList = () => {
   const {savedList, getItems} = useAddToSavedList();
@@ -12,7 +12,7 @@ const SavedList = () => {
   }, []));
 
   return (
-    <ListResults projects={savedList ? [savedList] : []} />
+    <SavedListResults projects={savedList} />
   );
 };
 
