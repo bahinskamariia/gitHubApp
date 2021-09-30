@@ -1,12 +1,15 @@
 import React from 'react';
-import SelectDropdown from 'react-native-select-dropdown'
+import {View} from 'react-native';
+import RNPickerSelect from 'react-native-picker-select';
+
 import {styles} from './styles';
 
 export const Filter = ({ languages, onSelect }) => {
-  const [selectedLanguage, setSelectedLanguage] = React.useState();
+  const [selectedLanguage, setSelectedLanguage] = React.useState('');
 
   React.useEffect(() => {
-    onSelect(selectedLanguage)
+    onSelect(selectedLanguage);
+
   }, [selectedLanguage]);
 
   if (!languages.length) {
@@ -14,12 +17,14 @@ export const Filter = ({ languages, onSelect }) => {
   }
 
   return (
-    <SelectDropdown
-      data={languages}
-      defaultValue={selectedLanguage}
-      onSelect={(selectedItem) => setSelectedLanguage(selectedItem)}
-      defaultButtonText="Select language"
-      rowStyle={styles.picker}
-    />
+    <View style={styles.container}>
+      <RNPickerSelect
+        items={languages}
+        onValueChange={(selectedItem) => {
+          console.log(selectedItem);
+          setSelectedLanguage(selectedItem)
+        }}
+      />
+    </View>
   );
 };

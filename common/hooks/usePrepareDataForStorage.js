@@ -16,6 +16,6 @@ export const usePrepareDataForStorage = () => ({
     rating: stargazers_count,
     description: description,
     projectLink: html_url,
-    language: language,
+    language: language || 'No language',
   };
 };

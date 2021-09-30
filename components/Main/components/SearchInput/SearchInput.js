@@ -6,6 +6,7 @@ const placeholder = "Enter search term";
 
 export const SearchInput = ({
   onSearch,
+  setLanguage,
 }) => {
   const [value, setValue] = React.useState('');
 
@@ -22,6 +23,7 @@ export const SearchInput = ({
     }
 
     setValue(value);
+    setLanguage('');
     setTimeOut(() => onSearch(value));
   }, []);
 

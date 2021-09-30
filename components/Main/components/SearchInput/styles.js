@@ -6,6 +6,6 @@ export const styles = StyleSheet.create({
     borderRadius: 10,
     paddingHorizontal: 20,
     paddingVertical: 10,
-    marginBottom: 10,
+    margin: 10,
   },
 });

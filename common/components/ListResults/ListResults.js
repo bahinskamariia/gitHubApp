@@ -1,5 +1,6 @@
 import React from 'react';
 import {FlatList, Text} from 'react-native';
+
 import {styles} from './styles';
 import {ItemList} from '../ItemList/ItemList';
 import {useAddToSavedList} from "../../../components/Main/hooks/useAddToSavedList";
@@ -8,7 +9,7 @@ const renderListItem = (onPress, showAddButton, isInSavedList, language) => ({ i
   const handlePress = () => onPress(item);
 
   return (
-    (language === item.language || language === '') && (
+    (language === item.language || language === '' || language === null) && (
       <ItemList
         {...item}
         onPress={handlePress}

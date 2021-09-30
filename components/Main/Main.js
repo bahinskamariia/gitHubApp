@@ -1,9 +1,12 @@
 import React from 'react';
-import {SearchInput} from './components/SearchInput/SearchInput';
+
 import ListResults from '../../common/components/ListResults/ListResults';
-import {useSearch} from "./hooks/useSearch";
 import {useLanguages} from "../../common/hooks/useLanguages";
+
+import {SearchInput} from './components/SearchInput/SearchInput';
 import {Filter} from "./components/Filter/Filter";
+
+import {useSearch} from "./hooks/useSearch";
 
 const Main = () => {
   const [language, setLanguage] = React.useState('');
@@ -12,7 +15,7 @@ const Main = () => {
 
   return (
     <>
-      <SearchInput onSearch={onSearch} />
+      <SearchInput onSearch={onSearch} setLanguage={setLanguage}/>
       <Filter languages={languages} onSelect={setLanguage} />
       <ListResults
         projects={projects}
