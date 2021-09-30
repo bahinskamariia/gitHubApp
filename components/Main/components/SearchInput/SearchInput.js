@@ -9,6 +9,12 @@ export const SearchInput = ({
 }) => {
   const [value, setValue] = React.useState('');
 
+  const setTimeOut = (cb) => {
+    const timeout = setTimeout(cb, 1000);
+
+    return () => clearTimeout(timeout);
+  };
+
   const handleChange = React.useCallback((value) => {
     if (!value) {
       setValue('');
@@ -16,7 +22,7 @@ export const SearchInput = ({
     }
 
     setValue(value);
-    setTimeout(() => onSearch(value), 1000);
+    setTimeOut(() => onSearch(value));
   }, []);
 
   return (

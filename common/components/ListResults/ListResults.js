@@ -4,7 +4,7 @@ import {styles} from './styles';
 import {ItemList} from '../ItemList/ItemList';
 import {useAddToSavedList} from "../../../components/Main/hooks/useAddToSavedList";
 
-const renderListItem = (onPress, showAddButton) => ({ item } ) => {
+const renderListItem = (onPress, showAddButton, isInSavedList) => ({ item }) =>  {
   const handlePress = () => onPress(item);
 
   return (
@@ -12,15 +12,16 @@ const renderListItem = (onPress, showAddButton) => ({ item } ) => {
       {...item}
       onPress={handlePress}
       showAddButton={showAddButton}
+      isInSavedList={isInSavedList(item)}
     />
   )
 };
 
-export const ListResults = ({
+const ListResults = ({
   projects,
   showAddButton = false,
 }) => {
-  const { setItem } = useAddToSavedList();
+  const { setItem, checkStorage } = useAddToSavedList();
 
   if (!projects) {
    return (
@@ -32,8 +33,11 @@ export const ListResults = ({
     <FlatList
       data={projects}
       style={styles.input}
-      renderItem={renderListItem(setItem, showAddButton)}
+      renderItem={renderListItem(setItem, showAddButton, checkStorage)}
       keyExtractor={(item) => item.id.toString()}
+      maxToRenderPerBatch={5}
     />
   );
 };
+
+export default React.memo(ListResults);

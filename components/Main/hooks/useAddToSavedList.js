@@ -15,12 +15,21 @@ export const useAddToSavedList = () => {
     }
   }, []);
 
+  const checkStorage = React.useCallback((item) => {
+    return savedList[item.id];
+  }, [savedList]);
+
   const setToStorage = React.useCallback(async (item) => {
     try {
+      const isSavedAlready = checkStorage(item);
+      if (isSavedAlready) {
+        return;
+      }
+
       await AsyncStorage.mergeItem(
         'savedList',
         JSON.stringify({
-          [Date.now()]: item,
+          [item.id]: item,
         }),
       );
       await getFromStorage();
@@ -36,6 +45,7 @@ export const useAddToSavedList = () => {
   return {
     setItem: setToStorage,
     getItems: getFromStorage,
+    checkStorage,
     savedList: savedList || [],
   }
 };

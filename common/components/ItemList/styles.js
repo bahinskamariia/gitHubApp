@@ -40,4 +40,7 @@ export const styles = StyleSheet.create({
   additional: {
     paddingTop: 10,
   },
+  savedIcon: {
+    marginLeft: 'auto',
+  },
 });

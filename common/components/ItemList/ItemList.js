@@ -12,6 +12,7 @@ export const ItemList = ({
   language,
   onPress,
   showAddButton,
+  isInSavedList,
 }) => (
   <View style={styles.container}>
     <Image source={{ uri: avatar }} style={styles.avatar} />
@@ -22,23 +23,29 @@ export const ItemList = ({
         </Text>
         <Text style={styles.rating}>
           <Ionicons
-            name={'star'}
+            name='star'
             size={10}
             color='black'
           />
           {rating}
         </Text>
       </View>
-
-
       <Text style={styles.description}>{description}</Text>
       <Text style={styles.additional}>Link: {projectLink}</Text>
       <Text style={styles.additional}>Language: {language}</Text>
-      {showAddButton && (<Button
+      {showAddButton && !isInSavedList && (<Button
         onPress={onPress}
         title="Add to saved list"
         color="#841584"
       />)}
+      {isInSavedList && (
+        <Ionicons
+          name='bookmark'
+          size={20}
+          color='green'
+          style={styles.savedIcon}
+        />
+      )}
     </View>
   </View>
 );
