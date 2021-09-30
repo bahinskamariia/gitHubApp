@@ -29,14 +29,13 @@ const ListResults = ({
 
   if (!projects) {
    return (
-     <Text>No projects yet...</Text>
+     <Text style={styles.text}>No projects yet...</Text>
    )
   }
 
   return (
     <FlatList
       data={projects}
-      style={styles.input}
       renderItem={renderListItem(setItem, showAddButton, checkStorage, selectedLanguage)}
       keyExtractor={(item) => item.id.toString()}
       maxToRenderPerBatch={5}

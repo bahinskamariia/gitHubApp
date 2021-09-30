@@ -1,5 +1,6 @@
 import React from 'react';
 import {Alert} from 'react-native';
+import debounce from 'lodash.debounce';
 
 import {searchProject} from '../../../api/api';
 import {usePrepareDataForStorage} from '../../../common/hooks/usePrepareDataForStorage';
@@ -12,6 +13,10 @@ export const useSearch = () => {
     try {
       const data = await searchProject(value);
 
+      if (!data) {
+        return;
+      }
+
       const preparedData = data.map((project) => prepareData(project));
       setProjects(preparedData);
     } catch (e) {
@@ -20,7 +25,7 @@ export const useSearch = () => {
   };
 
   return {
-    onSearch: handleSearch,
+    onSearch: debounce(handleSearch, 1000),
     projects,
   }
 };
