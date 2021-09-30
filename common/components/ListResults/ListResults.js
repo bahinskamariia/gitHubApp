@@ -4,24 +4,27 @@ import {styles} from './styles';
 import {ItemList} from '../ItemList/ItemList';
 import {useAddToSavedList} from "../../../components/Main/hooks/useAddToSavedList";
 
-const renderListItem = (onPress, showAddButton, isInSavedList) => ({ item }) =>  {
+const renderListItem = (onPress, showAddButton, isInSavedList, language) => ({ item }) =>  {
   const handlePress = () => onPress(item);
 
   return (
-    <ItemList
-      {...item}
-      onPress={handlePress}
-      showAddButton={showAddButton}
-      isInSavedList={isInSavedList(item)}
-    />
+    (language === item.language || language === '') && (
+      <ItemList
+        {...item}
+        onPress={handlePress}
+        showAddButton={showAddButton}
+        isInSavedList={isInSavedList(item)}
+      />
+    )
   )
 };
 
 const ListResults = ({
   projects,
+  selectedLanguage = '',
   showAddButton = false,
 }) => {
-  const { setItem, checkStorage } = useAddToSavedList();
+  const {setItem, checkStorage} = useAddToSavedList();
 
   if (!projects) {
    return (
@@ -33,7 +36,7 @@ const ListResults = ({
     <FlatList
       data={projects}
       style={styles.input}
-      renderItem={renderListItem(setItem, showAddButton, checkStorage)}
+      renderItem={renderListItem(setItem, showAddButton, checkStorage, selectedLanguage)}
       keyExtractor={(item) => item.id.toString()}
       maxToRenderPerBatch={5}
     />
